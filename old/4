@@ -1,0 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 13:40:24 by vloureir          #+#    #+#             */
+/*   Updated: 2025/03/22 13:47:41 by vloureir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		write(1, &str[i], 1);
+}
+
+char	*get_next_line(int fd)
+{
+	return ("hello");
+
+}
+
+int	main(int argc, char **argv)
+{
+	int	fd;
+
+	if (argc < 2)
+		return (1);
+	(fd = open(argv[1], O_RDONLY));
+		return (2);
+	ft_putstr(get_next_line(1));
+
+	close (fd);
+	return (0);
+}
