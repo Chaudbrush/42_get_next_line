@@ -6,7 +6,7 @@
 /*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:04:46 by vloureir          #+#    #+#             */
-/*   Updated: 2025/04/19 09:01:46 by vloureir         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:21:40 by vloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ char	*get_next_line(int fd)
 	clean_buffer(buffer);
 	return (line);
 }
-
