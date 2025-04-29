@@ -39,19 +39,29 @@ char	*create_line(t_list *lst, int len)
 	return (tmp);
 }
 
-void	ft_lstclear(t_list **lst)
+int	get_line_len(t_list *lst)
 {
+	int		i;
+	int		len;
 	t_list	*ptr;
 
 	if (!lst)
-		return ;
-	while (*lst)
+		return (0);
+	len = 0;
+	ptr = lst;
+	while (ptr)
 	{
-		ptr = *lst;
-		*lst = (*lst)->next;
-		free(ptr->content);
-		free(ptr);
+		i = 0;
+		while ((ptr->content)[i] && (ptr->content)[i] != '\n')
+		{
+			i++;
+			len++;
+		}
+		if ((ptr->content)[i] == '\n')
+			return (len + 1);
+		ptr = ptr->next;
 	}
+	return (len);
 }
 
 void	read_and_store(t_list **lst, char *buffer, int fd)
@@ -91,12 +101,14 @@ void	ft_init_list(t_list **lst, char *buffer)
 		len++;
 	tmp = malloc(sizeof(char) * (len + 1));
 	if (!tmp)
+	{
+		ft_lstclear(lst);
 		return ;
+	}
 	i = -1;
 	while (buffer[++i])
 		tmp[i] = buffer[i];
 	tmp[i] = 0;
-//	printf("tmp :[%s]\n", tmp);
 	node = ft_lstnew(tmp);
 	ft_lstadd_back(lst, node);
 }
@@ -109,25 +121,22 @@ char	*get_next_line(int fd)
 	int			len;
 	int			i;
 
-	buffer = NULL;
-	lst = NULL;
-	i = -1;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-//	printf("%s", store);
+	lst = NULL;
+	buffer = NULL;
+	i = -1;
 	if (store[0])
 		ft_init_list(&lst, store);
-	read_and_store(&lst, buffer, fd);
+	if (!check_newline(store))
+		read_and_store(&lst, buffer, fd);
 	len = get_line_len(lst);
-//	printf("len: %d\n", len);
 	buffer = create_line(lst, len);
-//	ft_lstclear(&lst);
-	ft_save_end(&lst); 
+	ft_save_end(&lst);
 	while ((lst->content)[++i])
 		store[i] = (lst->content)[i];
 	store[i] = 0;
 	free(lst->content);
 	free(lst);
-//	printf("[%s]", store);
 	return (buffer);
 }

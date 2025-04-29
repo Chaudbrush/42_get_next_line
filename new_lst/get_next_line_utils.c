@@ -63,7 +63,7 @@ void	ft_save_end(t_list **lst)
 		i++;
 	if ((ptr->content)[i] == '\n')
 		i++;
-	while((ptr->content)[i])
+	while ((ptr->content)[i])
 		(ptr->content)[j++] = (ptr->content)[i++];
 	(ptr->content)[j] = 0;
 }
@@ -72,6 +72,8 @@ int	check_newline(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 	{
@@ -82,27 +84,18 @@ int	check_newline(char *str)
 	return (0);
 }
 
-int	get_line_len(t_list *lst)
+void	ft_lstclear(t_list **lst)
 {
-	int		i;
-	int		len;
 	t_list	*ptr;
 
 	if (!lst)
-		return (0);
-	len = 0;
-	ptr = lst;
-	while (ptr)
+		return ;
+	while (*lst)
 	{
-		i = 0;
-		while ((ptr->content)[i] && (ptr->content)[i] != '\n')
-		{
-			i++;
-			len++;
-		}
-		if ((ptr->content)[i] == '\n')
-			len++;
-		ptr = ptr->next;
+		ptr = *lst;
+		*lst = (*lst)->next;
+		free(ptr->content);
+		free(ptr);
 	}
-	return (len);
+	*lst = NULL;
 }

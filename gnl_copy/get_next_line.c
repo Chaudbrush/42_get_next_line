@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 08:56:23 by vloureir          #+#    #+#             */
-/*   Updated: 2025/04/29 18:44:02 by vloureir         ###   ########.fr       */
+/*   Created: 2025/04/08 10:04:46 by vloureir          #+#    #+#             */
+/*   Updated: 2025/04/24 10:21:40 by vloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	main(int argc, char **argv)
+int	check_newline(char *buffer)
 {
-	int		i;
-	int		fd;
-	char	*line;
+	int	i;
 
-	if (argc == 2)
+	i = -1;
+	while (buffer[++i])
 	{
-		i = 1;
-		fd = open(argv[1], O_RDONLY);
-		while (i <= 25)
-		{
-			line = get_next_line(fd);
-			printf("line %d: ", i);
-			printf("%s", line);
-			free(line);
-			i++;
-		}
-		close(fd);
+		if (buffer[i] == '\n')
+			return (1);
 	}
 	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1] = {0};
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	line = NULL;
+	ft_read_and_store(fd, &line, buffer);
+	clean_buffer(buffer);
+	return (line);
 }
