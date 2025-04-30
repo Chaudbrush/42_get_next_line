@@ -27,10 +27,10 @@ int	check_newline(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1] = {0};
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	line = NULL;
 	ft_read_and_store(fd, &line, buffer);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	check_newline(char *buffer)
 {
@@ -27,13 +27,15 @@ int	check_newline(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1] = {0};
+	static char	buffer[FOPEN_MAX][BUFFER_SIZE + 1];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	line = NULL;
-	ft_read_and_store(fd, &line, buffer);
-	clean_buffer(buffer);
+	ft_read_and_store(fd, &line, buffer[fd]);
+	if (line)
+		clean_line(&line);
+	clean_buffer(buffer[fd]);
 	return (line);
 }
