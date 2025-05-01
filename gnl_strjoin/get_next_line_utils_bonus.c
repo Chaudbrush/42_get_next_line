@@ -67,20 +67,6 @@ void	ft_read_and_store(int fd, char **line, char *buffer)
 	}
 }
 
-void	clean_line(char **line)
-{
-	int		len;
-
-	if (!*line)
-		return ;
-	len = 0;
-	while ((*line)[len] && (*line)[len] != '\n')
-		len++;
-	if ((*line)[len] == '\n')
-		len++;
-	(*line)[len] = '\0';
-}
-
 void	clean_buffer(char *buffer)
 {
 	int	i;
@@ -95,4 +81,17 @@ void	clean_buffer(char *buffer)
 	while (buffer[i])
 		buffer[j++] = buffer[i++];
 	buffer[j] = '\0';
+}
+
+int	check_newline(char *buffer)
+{
+	int	i;
+
+	i = -1;
+	while (buffer[++i])
+	{
+		if (buffer[i] == '\n')
+			return (1);
+	}
+	return (0);
 }

@@ -12,30 +12,25 @@
 
 #include "get_next_line.h"
 
-int	check_newline(char *buffer)
-{
-	int	i;
-
-	i = -1;
-	while (buffer[++i])
-	{
-		if (buffer[i] == '\n')
-			return (1);
-	}
-	return (0);
-}
-
 char	*get_next_line(int fd)
 {
+	int			i;
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	i = 0;
 	line = NULL;
 	ft_read_and_store(fd, &line, buffer);
 	if (line)
-		clean_line(&line);
+	{
+		while (line[i] && line[i] != '\n')
+			i++;
+		if (line[i] == '\n')
+			i++;
+		line[i] = '\0';
+	}
 	clean_buffer(buffer);
 	return (line);
 }

@@ -22,12 +22,11 @@
 #  define BUFFER_SIZE 5
 # endif
 
+char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
-int		check_newline(char *buffer);
-char	*get_next_line(int fd);
 void	ft_read_and_store(int fd, char **line, char *buffer);
-void	clean_line(char **line);
 void	clean_buffer(char *buffer);
+int		check_newline(char *buffer);
 
 #endif
