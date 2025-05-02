@@ -58,7 +58,10 @@ void	ft_read_and_store(int fd, char **line, char *buffer)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 1)
+		{
+			buffer[0] = '\0';
 			break ;
+		}
 		buffer[bytes_read] = '\0';
 		*line = ft_strjoin(*line, buffer);
 	}
