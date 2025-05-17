@@ -1,7 +1,9 @@
 # 42_get_next_line
 
-## gnl_strjoin
-This is the project I submitted at 42 School, with the bonus done.
+### Small Description
+  - The aim of this project is to make you code a function that returns a line ending with a newline, read from a file descriptor.
 
-## gnl_list folder
-Get Next Line done with lists, it was just used as a trinning exercise to get better at lists.
+### Notes
+  - In this project we learn and study the used of static variables
+  - The function should be able to fully read from a file if called on a loop
+  - It should return (NULL) on any error or when the file is fulle read
