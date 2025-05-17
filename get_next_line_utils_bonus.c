@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:22:05 by vloureir          #+#    #+#             */
-/*   Updated: 2025/05/17 09:04:46 by vloureir         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:47:23 by vloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -36,14 +36,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	new = malloc(sizeof(char) * (len + 1));
 	if (!new)
-		return (free((char *)s1), NULL);
+		return (free(s1), NULL);
 	while (s1 && s1[i])
 		new[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
 		new[j++] = s2[i++];
 	new[j] = '\0';
-	free((char *)s1);
+	free(s1);
 	return (new);
 }
 
@@ -66,7 +66,7 @@ void	ft_read_and_store(int fd, char **line, char *buffer)
 	{
 		free(*line);
 		*line = NULL;
-		buffer[0] = '\0';
+		buffer[0] = 0;
 	}
 }
 

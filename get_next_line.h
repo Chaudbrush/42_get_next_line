@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 08:22:49 by vloureir          #+#    #+#             */
-/*   Updated: 2025/04/28 08:34:05 by vloureir         ###   ########.fr       */
+/*   Created: 2025/04/09 12:15:45 by vloureir          #+#    #+#             */
+/*   Updated: 2025/05/17 14:15:18 by vloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,19 @@
 # define GET_NEXT_LINE_H
 
 # include <fcntl.h>
-# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 42
 # endif
 
-typedef struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-}				t_list;
-
-t_list	*ft_lstnew(void *data);
-void	ft_lstadd_back(t_list **lst, t_list *node);
-void	ft_save_end(t_list **lst);
-int		check_newline(char *str);
-void	read_and_store(t_list **lst, char *buffer, int fd);
-int		get_line_len(t_list *lst);
-char	*create_line(t_list *lst, int len);
-void	ft_init_list(t_list **lst, char *buffer);
 char	*get_next_line(int fd);
-void	ft_lstclear(t_list **lst);
+size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char *s1, char const *s2);
+void	ft_read_and_store(int fd, char **line, char *buffer);
+void	clean_buffer(char *buffer);
+int		check_newline(char *buffer);
 
 #endif
