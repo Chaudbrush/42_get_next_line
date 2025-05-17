@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vloureir <vloureir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:22:05 by vloureir          #+#    #+#             */
-/*   Updated: 2025/04/24 10:22:28 by vloureir         ###   ########.fr       */
+/*   Updated: 2025/05/17 08:21:26 by vloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ void	ft_read_and_store(int fd, char **line, char *buffer)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 1)
-		{
-			buffer[0] = '\0';
 			break ;
-		}
 		buffer[bytes_read] = '\0';
 		*line = ft_strjoin(*line, buffer);
+	}
+	if (bytes_read == -1)
+	{
+		free(*line);
+		*line = NULL;
+		buffer[0] = 0;
 	}
 }
 
