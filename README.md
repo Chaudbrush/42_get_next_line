@@ -7,3 +7,9 @@
   - In this project we learn and study the used of static variables
   - The function should be able to fully read from a file if called on a loop
   - It should return (NULL) on any error or when the file is fulle read
+
+### ERROR return cases
+- If fd is invalid or buffer_size is invalid
+- If we get a read error
+- If malloc fails
+- If we fully read the file
